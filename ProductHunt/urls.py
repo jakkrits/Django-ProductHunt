@@ -22,5 +22,5 @@ import accounts.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', products.views.home, name='home'),
-    path('accounts/', accounts.views.home, name='accounts')
+    path('accounts/', include('accounts.urls'))
 ]

@@ -1,6 +1,10 @@
 from django.shortcuts import render
 
 
+def profile(request):
+    return render(request, 'accounts/profile.html')
+
+
 def login(request):
     return render(request, 'accounts/login.html')
 
