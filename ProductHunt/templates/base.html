@@ -16,6 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href={% static 'css/main.css' %} rel="stylesheet">
+    <link href={% static 'css/accounts.css' %} rel="stylesheet">
 
     <link rel="apple-touch-icon" sizes="180x180" href={% static "favicon/apple-touch-icon.png" %}>
     <link rel="icon" type="image/png" sizes="32x32" href={% static "favicon/favicon-32x32.png" %}>
@@ -35,9 +36,18 @@
                 <div class="col-sm-4 offset-md-1 pt-4 ml-auto mb-0 pb-0">
                     <h4 class="text-white">Home</h4>
                     <ul class="list-unstyled">
-                        <li><a href="/admin  " class="text-white">Sign Up</a></li>
-                        <li><a href="/admin  " class="text-white">Login</a></li>
-                        <li><a href="/admin  " class="text-white">Admin</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="javascript:{document.getElementById('logout').submit()}" class="text-white">Logout</a>
+                            </li>
+                            <form id="logout" method="POST" action={% url 'logout' %}>
+                                {% csrf_token %}
+                                <input type="hidden"/>
+                            </form>
+                            <li><a href="/admin" class="text-white">Admin</a></li>
+                        {% else %}
+                            <li><a href={% url 'signup' %} class="text-white">Sign Up</a></li>
+                            <li><a href={% url 'login' %} class="text-white">Login</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -68,7 +78,7 @@
         </div>
     </section>
 
-    <div class="portfolio py-5 bg-light">
+    <div class="py-5 bg-light">
         <div class="container">
             {% block content %}
             {% endblock %}
